@@ -1,0 +1,12 @@
+{
+    "name": "basic-app/module-user",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BasicApp\\User\\": ""
+        }
+    },
+    "require": {
+        "denis303/codeigniter4-user": "dev-master"    
+    }
+}
