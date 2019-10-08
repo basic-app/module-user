@@ -5,6 +5,6 @@
  */
 namespace denis303\user;
 
-abstract class BaseUser extends BasicApp\Core\Entity
+abstract class BaseUser extends \BasicApp\Core\Entity
 {
 }
