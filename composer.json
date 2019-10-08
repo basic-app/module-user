@@ -4,6 +4,10 @@
     "autoload": {
         "psr-4": {
             "BasicApp\\User\\": ""
+        },
+        "files": {
+            "_autoload/BaseUser.php",
+            "_autoload/BaseUserModel.php"
         }
     },
     "require": {
