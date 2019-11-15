@@ -7,4 +7,7 @@ namespace BasicApp\User\Models;
 
 abstract class BaseUser extends \denis303\user\User
 {
+
+    protected $modelClass = UserModel::class;
+    
 }

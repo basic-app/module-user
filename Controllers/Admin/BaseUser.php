@@ -3,11 +3,11 @@
  * @author Basic App Dev Team
  * @license MIT
  */
-namespace BasicApp\User\Controllers\User;
+namespace BasicApp\User\Controllers\Admin;
 
 use BasicApp\User\Models\Admin\UserModel;
 
-abstract class BaseAdmin extends \BasicApp\Admin\AdminCrudController
+abstract class BaseUser extends \BasicApp\Admin\AdminCrudController
 {
 
 	protected $modelClass = UserModel::class;
