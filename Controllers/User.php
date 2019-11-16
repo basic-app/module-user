@@ -33,7 +33,9 @@ class User extends \BasicApp\User\UserController
         {
             if (($user = $model->signup($data, $error)) && $model->sendEmail($user, $error))
             {
-                $this->session->setFlashdata(
+                $session = service('session');
+
+                $session->setFlashdata(
                     'success', 
                     'Thank you for registration. Please check your inbox for verification email.'
                 );

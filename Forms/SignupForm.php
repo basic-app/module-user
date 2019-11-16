@@ -59,12 +59,14 @@ class SignupForm extends \BasicApp\Core\Model
      */
     public function sendEmail(User $user, &$error = null)
     {
+        $params = [
+            '{verifyLink}' => UserModel::getUserVerificationUrl($user)
+        ];
+
         return MessageModel::getMessage('signup', true, [
-                'message_title' => 'Account registration at ' . base_url(),
-                'message_body' => '{verifyLink}'
-            ])->setParams([
-                'verifyLink' => UserModel::getUserVerificationUrl($user)
-            ])->sendToUser($user, $options, $error);
+            'message_subject' => 'Account registration at ' . base_url(),
+            'message_body' => '{verifyLink}'
+        ])->sendToUser($user, $params, $error);
     }
 
 }
