@@ -3,6 +3,7 @@
 namespace BasicApp\User\Forms;
 
 use BasicApp\User\Models\UserModel;
+use BasicApp\User\Models\User;
 
 /**
  * Password reset form

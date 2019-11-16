@@ -14,6 +14,8 @@ use BasicApp\User\Forms\UserModel;
 class User extends \BasicApp\User\UserController
 {
 
+    protected $viewPath = 'BasicApp\User';
+
     /**
      * Signs user up.
      *

@@ -1,41 +1,37 @@
 <?php
 
-use App\Widgets\FormGroup;
+use BasicApp\Site\Models\PageModel;
 
 /* @var $this \CodeIgniter\View\View */
-/* @var $model \App\Models\ResendVerificationEmailForm */
+/* @var $model \BasicApp\User\Forms\ResendVerificationEmailForm */
 
-$this->data['title'] = 'Resend verification email';
+$theme = service('theme');
+
+$page = PageModel::getPage('user/resendVerificationEmail', true, [
+    'page_name' => 'Resend verification email',
+    'page_text' => '<p>Please fill out your email. A verification email will be sent there.</p>'
+]);
+
+$page->setMetaTags($this);
 
 $this->data['breadcrumbs'][] = $this->data['title'];
 
-helper('form');
+echo PageModel::pageText($page);
 
-?>
+$form = $theme->createForm($model, $errors);
 
-<p>Please fill out your email. A verification email will be sent there.</p>
+echo $form->open();
 
-<?= form_open('user/resendVerificationEmail', ['id' => 'resend-verification-email-form']); ?>
+echo $form->inputGroup($data, 'email');
 
-<?= view('_errors', ['errors' => $errors]);?>
+echo $form->renderErrors();
 
-<?= FormGroup::factory([
-    'content' => form_input(
-        'email', 
-        array_key_exists('email', $data) ? $data['email'] : '', 
-        [
-            'class' => 'form-control',
-            'autofocus' => true
-        ]
-    ),
-    'label' => $model->getFieldLabel('email'),
-    'error' => array_key_exists('email', $errors) ? $errors['email'] : null
-]);?>
+echo $form->beginButtons();
 
-<div class="form-group">
+$submit = t('user', 'Send');
 
-    <?= form_submit('send', 'Send', ['class' => 'btn btn-primary']);?>
+echo $form->submitButton($submit);
 
-</div>
+echo $form->endButtons();
 
-<?= form_close();?>
+echo $form->close();

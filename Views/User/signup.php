@@ -1,65 +1,41 @@
 <?php
 
-use App\Widgets\FormGroup;
+use BasicApp\Site\Models\PageModel;
 
 /* @var $this \CodeIgniter\View\View */
-/* @var $model \App\Models\SignupForm */
+/* @var $model \BasicApp\User\Forms\SignupForm */
 
-$this->data['title'] = 'Signup';
+$theme = service('theme');
+
+$page = PageModel::getPage('user/signup', true, [
+    'page_name' => 'Signup',
+    'page_text' => '<p>Please fill out the following fields to signup:</p>'
+]);
+
+$page->setMetaTags($this);
 
 $this->data['breadcrumbs'][] = $this->data['title'];
 
-helper(['form']);
+echo PageModel::pageText($page);
 
-?>
-    
-<p>Please fill out the following fields to signup:</p>
+$form = $theme->createForm($model, $errors);
 
-<?= view('_errors', ['errors' => $errors]);?>
+echo $form->open();
 
-<?= form_open('user/signup', ['id' => 'form-signup']);?>
+echo $form->inputGroup($data, 'username');
 
-<?= FormGroup::factory([
-    'content' => form_input(
-        'username', 
-        array_key_exists('username', $data) ? $data['username'] : '', 
-        [
-            'autofocus' => true, 
-            'class' => 'form-control'
-        ]
-    ),
-    'label' => $model->getFieldLabel('username'),
-    'error' => array_key_exists('username', $errors) ? $errors['username'] : null
-]);?>
+echo $form->inputGroup($data, 'email');
 
-<?= FormGroup::factory([
-    'content' => form_input(
-        'email', 
-        array_key_exists('email', $data) ? $data['email'] : '', 
-        [
-            'class' => 'form-control'
-        ]
-    ),
-    'label' => $model->getFieldLabel('email'),
-    'error' => array_key_exists('email', $errors) ? $errors['email'] : null
-]);?>
+echo $form->passwordGroup($data, 'password');
 
-<?= FormGroup::factory([
-    'content' => form_password(
-        'password', 
-        '', 
-        [
-            'class' => 'form-control'
-        ]
-    ),
-    'label' => $model->getFieldLabel('password'),
-    'error' => array_key_exists('password', $errors) ? $errors['password'] : null
-]);?>
+echo $form->renderErrors();
 
-<div class="form-group">
+echo $form->beginButtons();
 
-    <?= form_submit('signup-button', 'Signup', ['class' => 'btn btn-primary']);?>
+$submit = t('user', 'Signup');
 
-</div>
+echo $form->submitButton($submit);
 
-<?= form_close();?>
+echo $form->endButtons();
+
+echo $form->close();

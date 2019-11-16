@@ -4,6 +4,7 @@ namespace BasicApp\User\Forms;
 
 use Exception;
 use BasicApp\User\Models\UserModel;
+use BasicApp\User\Models\User;
 
 class ResendVerificationEmailForm extends \BasicApp\Core\Model
 {

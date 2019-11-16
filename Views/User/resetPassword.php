@@ -1,41 +1,37 @@
 <?php
 
-use App\Widgets\FormGroup;
+use BasicApp\Site\Models\PageModel;
 
 /* @var $this \CodeIgniter\View\View */
-/* @var $model \App\Models\ResetPasswordForm */
+/* @var $model \BasicApp\User\Forms\ResetPasswordForm */
 
-$this->data['title'] = 'Reset password';
+$theme = service('theme');
+
+$page = PageModel::getPage('user/resetPassword', true, [
+    'page_name' => 'Reset password',
+    'page_text' => '<p>Please choose your new password:</p>'
+]);
+
+$page->setMetaTags($this);
 
 $this->data['breadcrumbs'][] = $this->data['title'];
 
-helper('form');
+echo PageModel::pageText($page);
 
-?>
+$form = $theme->createForm($model, $errors);
 
-<p>Please choose your new password:</p>
+echo $form->open();
 
-<?= form_open('user/resetPassword/' . $id . '/' . $token, ['id' => 'reset-password-form']);?>
+echo $form->passwordGroup($data, 'password');
 
-<?= view('_errors', ['errors' => $errors]);?>
+echo $form->renderErrors();
 
-<?= FormGroup::factory([
-    'content' => form_password(
-        'password', 
-        '', 
-        [
-            'class' => 'form-control',
-            'autofocus' => true
-        ]
-    ),
-    'label' => $model->getFieldLabel('password'),
-    'error' => array_key_exists('password', $errors) ? $errors['password'] : null
-]);?>
+echo $form->beginButtons();
 
-<div class="form-group">
+$submit = t('user', 'Save');
 
-    <?= form_submit('send', 'Save', ['class' => 'btn btn-primary']);?>
+echo $form->submitButton($submit);
 
-</div>
+echo $form->endButtons();
 
-<?= form_close();?>
+echo $form->close();

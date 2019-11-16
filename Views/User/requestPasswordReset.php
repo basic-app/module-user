@@ -1,41 +1,37 @@
 <?php
 
-use App\Widgets\FormGroup;
+use BasicApp\Site\Models\PageModel;
 
 /* @var $this \CodeIgniter\View\View */
-/* @var $model \App\Models\PasswordResetRequestForm */
+/* @var $model \BasicApp\User\Forms\PasswordResetRequestForm */
 
-$this->data['title'] = 'Request password reset';
+$page = PageModel::getPage('user/requestPasswordReset', true, [
+    'page_name' => 'Request password reset',
+    'page_text' => '<p>Please fill out your email. A link to reset password will be sent there.</p>'
+]);
+
+$page->setMetaTags($this);
 
 $this->data['breadcrumbs'][] = $this->data['title'];
 
-helper(['form']);
+$theme = service('theme');
 
-?>
-    
-<p>Please fill out your email. A link to reset password will be sent there.</p>
+echo PageModel::pageText($page);
 
-<?= form_open('user/requestPasswordReset', ['id' => 'request-password-reset-form']);?>
+$form = $theme->createForm($model, $errors);
 
-<?= view('_errors', ['errors' => $errors]);?>
+echo $form->open();
 
-<?= FormGroup::factory([
-    'content' => form_input(
-        'email', 
-        array_key_exists('email', $data) ? $data['email'] : '', 
-        [
-            'class' => 'form-control',
-            'autofocus' => true
-        ]
-    ),
-    'label' => $model->getFieldLabel('email'),
-    'error' => array_key_exists('email', $errors) ? $errors['email'] : null
-]);?>
+echo $form->inputGroup($data, 'email');
 
-<div class="form-group">
+echo $form->renderErrors();
 
-    <?= form_submit('submit', 'Send', ['class' => 'btn btn-primary']);?>
+echo $form->beginButtons();
 
-</div>
+$submit = t('user', 'Send');
 
-<?php form_close();?>
+echo $form->submitButton($submit);
+
+echo $form->endButtons();
+
+echo $form->close();

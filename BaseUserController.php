@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Config\Services;
 
-abstract class BaseUserController extends \BasicApp\Core\Controller
+abstract class BaseUserController extends \BasicApp\System\Controller
 {
 
     protected $user;

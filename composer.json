@@ -11,6 +11,8 @@
         ]
     },
     "require": {
-        "denis303/codeigniter4-user": "dev-master"    
+        "denis303/codeigniter4-user": "*",
+        "basic-app/module-site": "*",
+        "basic-app/module-message": "*"
     }
 }

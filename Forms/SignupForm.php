@@ -3,7 +3,9 @@
 namespace BasicApp\User\Forms;
 
 use Config\Services;
+use BasicApp\User\Models\User;
 use BasicApp\User\Models\UserModel;
+use BasicApp\Message\Models\MessageModel;
 
 /**
  * Signup form
@@ -57,20 +59,12 @@ class SignupForm extends \BasicApp\Core\Model
      */
     public function sendEmail(User $user, &$error = null)
     {
-        $message = view('messages/signup', [
-            'user' => $user,
-            'verifyLink' => UserModel::getUserVerificationUrl($user)
-        ]);
-
-        $mailer = service('mailer');
-
-        return $mailer->sendToUser(
-            $user, 
-            'Account registration at ' . base_url(), 
-            $message,
-            [], 
-            $error
-        );
+        return MessageModel::getMessage('signup', true, [
+                'message_title' => 'Account registration at ' . base_url(),
+                'message_body' => '{verifyLink}'
+            ])->setParams([
+                'verifyLink' => UserModel::getUserVerificationUrl($user)
+            ])->sendToUser($user, $options, $error);
     }
 
 }
