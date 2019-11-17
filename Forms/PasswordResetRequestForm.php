@@ -76,16 +76,14 @@ class PasswordResetRequestForm extends \BasicApp\Core\Model
             }
         }
 
-        return service('mailer')->sendToUser(
-            $user,
-            'Password reset for ' . base_url(),
-            view('messages/resetPassword', [
-                'user' => $user,
-                'resetLink' => UserModel::getUserResetPasswordUrl($user)
-            ]),
-            [],
-            $error
-        );
+        $params = [
+            '{resetLink}' => UserModel::getUserResetPasswordUrl($user)
+        ];
+
+        return MessageModel::getMessage('email-verification', true, [
+            'message_subject' => 'Password reset for {base_url}',
+            'message_body' => '{resetLink}'
+        ])->sendToUser($user, $params, $error);
     }
 
 }

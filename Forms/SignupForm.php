@@ -64,7 +64,7 @@ class SignupForm extends \BasicApp\Core\Model
         ];
 
         return MessageModel::getMessage('signup', true, [
-            'message_subject' => 'Account registration at ' . base_url(),
+            'message_subject' => 'Account registration at {base_url}',
             'message_body' => '{verifyLink}'
         ])->sendToUser($user, $params, $error);
     }

@@ -66,16 +66,14 @@ class ResendVerificationEmailForm extends \BasicApp\Core\Model
             }
         }
 
-        return service('mailer')->sendToUser(
-            $user, 
-           'Account verification at ' . base_url(), 
-            view('messages/verification', [
-                'user' => $user,
-                'verifyLink' => UserModel::getUserVerificationUrl($user)
-            ]), 
-            [],
-            $error
-        );
+        $params = [
+            '{verifyLink}' => UserModel::getUserVerificationUrl($user)
+        ];
+
+        return MessageModel::getMessage('email-verification', true, [
+            'message_subject' => 'Account verification at {base_url}',
+            'message_body' => '{verifyLink}'
+        ])->sendToUser($user, $params, $error);
     }
 
 }
