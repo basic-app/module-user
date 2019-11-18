@@ -22,7 +22,7 @@ $form = $theme->createForm($model, $errors);
 
 echo $form->open();
 
-echo $form->inputGroup($data, 'username');
+echo $form->inputGroup($data, 'username', ['autofocus' => true]);
 
 echo $form->inputGroup($data, 'email');
 

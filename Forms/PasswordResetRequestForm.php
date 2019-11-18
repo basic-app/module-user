@@ -3,6 +3,7 @@
 namespace BasicApp\User\Forms;
 
 use Exception;
+use BasicApp\Message\Models\MessageModel;
 use BasicApp\User\Models\UserModel;
 use BasicApp\User\Models\User;
 
@@ -70,7 +71,7 @@ class PasswordResetRequestForm extends \BasicApp\Core\Model
         {
             UserModel::setUserField($user, 'password_reset_token', UserModel::generateToken());
 
-            if (!UserModel::saveUser($user, $error))
+            if (!UserModel::saveEntity($user, false, $error))
             {
                 throw new Exception($error);
             }
@@ -80,7 +81,7 @@ class PasswordResetRequestForm extends \BasicApp\Core\Model
             '{resetLink}' => UserModel::getUserResetPasswordUrl($user)
         ];
 
-        return MessageModel::getMessage('email-verification', true, [
+        return MessageModel::getMessage('reset-password', true, [
             'message_subject' => 'Password reset for {base_url}',
             'message_body' => '{resetLink}'
         ])->sendToUser($user, $params, $error);

@@ -3,6 +3,7 @@
 namespace BasicApp\User\Forms;
 
 use Exception;
+use BasicApp\Message\Models\MessageModel;
 use BasicApp\User\Models\UserModel;
 use BasicApp\User\Models\User;
 
@@ -60,7 +61,7 @@ class ResendVerificationEmailForm extends \BasicApp\Core\Model
         {
             UserModel::setUserField($user, 'verification_token', UserModel::generateToken());
 
-            if (!UserModel::saveUser($user, $error))
+            if (!UserModel::saveEntity($user, false, $error))
             {
                 throw new Exception($error);
             }

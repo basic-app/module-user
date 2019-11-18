@@ -4,12 +4,12 @@ namespace BasicApp\User\Controllers;
 
 use Exception;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use BasicApp\User\Models\UserModel;
 use BasicApp\User\Forms\LoginForm;
 use BasicApp\User\Forms\SignupForm;
 use BasicApp\User\Forms\PasswordResetRequestForm;
 use BasicApp\User\Forms\ResendVerificationEmailForm;
 use BasicApp\User\Forms\ResetPasswordForm;
-use BasicApp\User\Forms\UserModel;
 
 class User extends \BasicApp\User\UserController
 {
@@ -121,7 +121,7 @@ class User extends \BasicApp\User\UserController
      */
     public function verifyEmail($id, $token)
     {
-        $user = UserModel::findByPrimaryKey($id);
+        $user = UserModel::findByPk($id);
 
         if (!$user)
         {
@@ -133,7 +133,9 @@ class User extends \BasicApp\User\UserController
             throw new Exception($error);
         }
 
-        $this->session->setFlashdata('success', 'Your email has been confirmed!');
+        $session = service('session');
+
+        $session->setFlashdata('success', 'Your email has been confirmed!');
 
         return $this->redirect(site_url('user/login'));
     }
@@ -155,7 +157,9 @@ class User extends \BasicApp\User\UserController
         {
             if ($model->sendEmail($error))
             {
-                $this->session->setFlashdata('success', 'Check your email for further instructions.');
+                $session = service('session');
+
+                $session->setFlashdata('success', 'Check your email for further instructions.');
             
                 return $this->goHome();
             }
@@ -189,7 +193,9 @@ class User extends \BasicApp\User\UserController
         {
             if ($model->sendEmail($error))
             {
-                $this->session->setFlashdata('success', 'Check your email for further instructions.');
+                $session = service('session');
+
+                $session->setFlashdata('success', 'Check your email for further instructions.');
 
                 return $this->goHome();
             }
@@ -216,7 +222,7 @@ class User extends \BasicApp\User\UserController
      */
     public function resetPassword($id, $token)
     {
-        $user = UserModel::findByPrimaryKey($id);
+        $user = UserModel::findByPk($id);
 
         if (!$user)
         {
@@ -238,7 +244,9 @@ class User extends \BasicApp\User\UserController
         {
             if ($model->resetPassword($user, $data, $error))
             {
-                $this->session->setFlashdata('success', 'New password saved.');
+                $session = service('session');
+
+                $session->setFlashdata('success', 'New password saved.');
 
                 return $this->redirect(site_url('user/login'));
             }

@@ -31,7 +31,7 @@ class ResetPasswordForm extends \BasicApp\Core\Model
 
         UserModel::setUserField($user, 'password_reset_token', null);
 
-        return UserModel::saveUser($user, $error);
+        return UserModel::saveEntity($user, false, $error);
     }
 
 }

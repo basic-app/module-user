@@ -22,7 +22,7 @@ $form = $theme->createForm($model, $errors);
 
 echo $form->open();
 
-echo $form->passwordGroup($data, 'password');
+echo $form->passwordGroup($data, 'password', ['autofocus' => true]);
 
 echo $form->renderErrors();
 

@@ -94,9 +94,9 @@ abstract class BaseUserModel extends \denis303\user\UserModel
 
         $model = new UserModel;
 
-        $model->set(static::FIELD_PREFIX . 'verified_at', 'NOW()', false);
+        $model->set('user_verified_at', 'NOW()', false);
 
-        $model->set(static::FIELD_PREFIX . 'verification_token', 'NULL', false);
+        $model->set('user_verification_token', 'NULL', false);
 
         $model->protect(false);
 
@@ -113,18 +113,9 @@ abstract class BaseUserModel extends \denis303\user\UserModel
             return false;
         }
 
-        $user = UserModel::findByPrimaryKey($id);
+        $user = UserModel::findByPk($id);
 
         return true;
-    }
-
-    public static function saveUser($user, &$error)
-    {
-        $class = get_called_class();
-
-        $model = new $class;
-
-        return $model->saveUnprotected($user, $error);
     }
 
 }

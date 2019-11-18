@@ -44,7 +44,7 @@ class SignupForm extends \BasicApp\Core\Model
     public function signup(array $data, &$error = null)
     {
         $model = new UserModel;
-
+        
         return $model->createUser([
             'user_name' => $data['username'],
             'user_email' => $data['email'],
