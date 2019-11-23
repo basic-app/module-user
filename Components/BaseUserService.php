@@ -9,7 +9,7 @@ namespace BasicApp\User\Components;
 abstract class BaseUserService extends \denis303\codeigniter4\UserService
 {
 
-    const ID_SESSION = 'ba_admin';
+    const ID_SESSION = 'ba_user';
 
     public function findUserById($id)
     {

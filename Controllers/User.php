@@ -7,6 +7,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 use BasicApp\User\Models\UserModel;
 use BasicApp\User\Forms\LoginForm;
 use BasicApp\User\Forms\SignupForm;
+use BasicApp\User\Forms\ProfileForm;
 use BasicApp\User\Forms\PasswordResetRequestForm;
 use BasicApp\User\Forms\ResendVerificationEmailForm;
 use BasicApp\User\Forms\ResetPasswordForm;
@@ -15,6 +16,46 @@ class User extends \BasicApp\User\UserController
 {
 
     protected $viewPath = 'BasicApp\User';
+
+    /**
+     * Edit profile.
+     *
+     * @return mixed
+     */
+    public function profile()
+    {
+        $userService = service('user');
+
+        $user = $userService->getUser();
+
+        $model = new ProfileForm($user);
+
+        $data = $this->request->getPost();
+
+        $errors = [];
+
+        if ($data)
+        {
+            if ($model->saveProfile($data, $error))
+            {
+                $session = service('session');
+
+                $session->setFlashdata('success', 'Profile updated successfully.');
+            }
+            else
+            {
+                $errors[] = $error;
+            }
+        }
+
+        $user->password = '';
+
+        return $this->render('user/profile', [
+            'model' => $model,
+            'data' => $user,
+            'errors' => array_merge((array) $model->errors(), $errors)
+        ]);
+    }
 
     /**
      * Signs user up.
@@ -47,6 +88,8 @@ class User extends \BasicApp\User\UserController
                 $errors[] = $error;
             }
         }
+
+        $data['password'] = '';
 
         return $this->render('user/signup', [
             'model' => $model,

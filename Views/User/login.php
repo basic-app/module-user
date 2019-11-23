@@ -16,6 +16,8 @@ $page->setMetaTags($this);
 
 $this->data['breadcrumbs'][] = $this->data['title'];
 
+$this->data['accountMenu']['login']['active'] = true;
+
 echo PageModel::pageText($page);
 
 $form = $theme->createForm($model, $errors);
