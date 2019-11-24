@@ -26,7 +26,7 @@ echo $form->open();
 
 echo $form->inputGroup($data, 'user_name', ['autofocus' => true]);
 
-//echo $form->inputGroup($data, 'email');
+echo $form->inputGroup($data, 'user_email', ['disabled' => true]);
 
 echo $form->passwordGroup($data, 'password');
 
