@@ -5,6 +5,8 @@ use BasicApp\Site\Models\PageModel;
 /* @var $this \CodeIgniter\View\View */
 /* @var $model \BasicApp\User\Forms\PasswordResetRequestForm */
 
+require __DIR__ . '/_common.php';
+
 $page = PageModel::getPage('user/requestPasswordReset', true, [
     'page_name' => 'Request password reset',
     'page_text' => '<p>Please fill out your email. A link to reset password will be sent there.</p>'

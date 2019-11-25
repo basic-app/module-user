@@ -7,55 +7,14 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 use BasicApp\User\Models\UserModel;
 use BasicApp\User\Forms\LoginForm;
 use BasicApp\User\Forms\SignupForm;
-use BasicApp\User\Forms\ProfileForm;
 use BasicApp\User\Forms\PasswordResetRequestForm;
 use BasicApp\User\Forms\ResendVerificationEmailForm;
 use BasicApp\User\Forms\ResetPasswordForm;
 
-class User extends \BasicApp\User\UserController
+class User extends \BasicApp\System\Controller
 {
 
     protected $viewPath = 'BasicApp\User';
-
-    /**
-     * Edit profile.
-     *
-     * @return mixed
-     */
-    public function profile()
-    {
-        $userService = service('user');
-
-        $user = $userService->getUser();
-
-        $model = new ProfileForm($user);
-
-        $data = $this->request->getPost();
-
-        $errors = [];
-
-        if ($data)
-        {
-            if ($model->saveProfile($data, $error))
-            {
-                $session = service('session');
-
-                $session->setFlashdata('success', 'Profile updated successfully.');
-            }
-            else
-            {
-                $errors[] = $error;
-            }
-        }
-
-        $user->password = '';
-
-        return $this->render('user/profile', [
-            'model' => $model,
-            'data' => $user,
-            'errors' => array_merge((array) $model->errors(), $errors)
-        ]);
-    }
 
     /**
      * Signs user up.
@@ -105,7 +64,9 @@ class User extends \BasicApp\User\UserController
      */
     public function login()
     {
-        if (!$this->user->isGuest())
+        $userService = service('user');
+
+        if (!$userService->isGuest())
         {
             return $this->goHome();
         }
@@ -122,7 +83,7 @@ class User extends \BasicApp\User\UserController
 
             $user = $model->getUser();
 
-            if ($this->user->login($user, $rememberMe, $error))
+            if ($userService->login($user, $rememberMe, $error))
             {
                 return $this->goHome();
             }
@@ -142,18 +103,6 @@ class User extends \BasicApp\User\UserController
             'errors' => array_merge((array) $model->errors(), $errors),
             'data' => $data
         ]);        
-    }
-
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
-    public function logout()
-    {
-        $this->user->logout();
-
-        return $this->goHome();
     }
 
     /**

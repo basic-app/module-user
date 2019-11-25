@@ -6,6 +6,8 @@ use BasicApp\Helpers\Url;
 /* @var $this \CodeIgniter\View\View */
 /* @var $model \BasicApp\User\Forms\LoginForm */
 
+require __DIR__ . '/_common.php';
+
 $theme = service('theme');
 
 $page = PageModel::getPage('user/login', true, [

@@ -29,13 +29,17 @@ SystemEvents::onAccountMenu(function($event)
     else
     {
         $event->items = [
+            'member' => [
+                'label' => t('user', 'Account'),
+                'url' => Url::createUrl('member')
+            ],
             'profile' => [
                 'label' => t('user', 'Profile'),
-                'url' => Url::createUrl('user/profile')
+                'url' => Url::createUrl('member/profile')
             ],
             'logout' => [
                 'label' => t('user', 'Logout'),
-                'url' => Url::createUrl('user/logout')
+                'url' => Url::createUrl('member/logout')
             ]
         ];
     }

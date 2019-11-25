@@ -6,8 +6,9 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Config\Services;
+use Exception;
 
-abstract class BaseUserController extends \BasicApp\System\Controller
+abstract class BaseMemberController extends \BasicApp\System\Controller
 {
 
     protected $user;
@@ -24,7 +25,12 @@ abstract class BaseUserController extends \BasicApp\System\Controller
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
 
-        $this->user = Services::user();
+        $this->user = Services::user()->getUser();
+
+        if (!$this->user)
+        {
+            throw new Exception('Access denied.');
+        }
     }
 
 }

@@ -5,10 +5,12 @@ use BasicApp\Site\Models\PageModel;
 /* @var $this \CodeIgniter\View\View */
 /* @var $model \BasicApp\User\Forms\SignupForm */
 
+require __DIR__ . '/_common.php';
+
 $theme = service('theme');
 
-$page = PageModel::getPage('user/profile', true, [
-    'page_name' => 'Profile',
+$page = PageModel::getPage('member/profile', true, [
+    'page_name' => 'Edit Profile',
     'page_text' => '<p>Please fill out the following fields:</p>'
 ]);
 

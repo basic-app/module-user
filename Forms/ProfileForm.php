@@ -24,29 +24,14 @@ class ProfileForm extends UserModel
 
     protected $allowedFields = ['user_name', 'user_password_hash'];
 
-    public function __construct($user)
-    {
-        parent::__construct();
-    
-        $this->_user = $user;
-    }
-
     public function saveProfile($data, &$error = null)
     {
-        foreach($this->allowedFields as $field)
+        if (!empty($data->password))
         {
-            if (array_key_exists($field, $data))
-            {
-                $this->_user->$field = $data[$field];
-            }
-        }
-
-        if (!empty($data['password']))
-        {
-            static::setUserPassword($this->_user, $data['password']);
+            static::setUserPassword($data, $data->password);
         }
         
-        return $this->save($this->_user);
+        return $this->save($data);
     }
 
 }

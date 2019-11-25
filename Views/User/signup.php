@@ -5,6 +5,8 @@ use BasicApp\Site\Models\PageModel;
 /* @var $this \CodeIgniter\View\View */
 /* @var $model \BasicApp\User\Forms\SignupForm */
 
+require __DIR__ . '/_common.php';
+
 $theme = service('theme');
 
 $page = PageModel::getPage('user/signup', true, [
