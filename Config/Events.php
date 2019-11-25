@@ -30,11 +30,11 @@ SystemEvents::onAccountMenu(function($event)
     {
         $event->items = [
             'member' => [
-                'label' => t('user', 'Account'),
+                'label' => t('user', 'My Account'),
                 'url' => Url::createUrl('member')
             ],
             'profile' => [
-                'label' => t('user', 'Profile'),
+                'label' => t('user', 'Edit Profile'),
                 'url' => Url::createUrl('member/profile')
             ],
             'logout' => [
