@@ -15,7 +15,7 @@ class ResetPasswordForm extends \BasicApp\Core\Model
 
     protected $validationRules = [
         'password' => [
-            'rules' => 'required|' . UserModel::PASSWORD_RULES,
+            'rules' => 'required|not_special_chars|' . UserModel::PASSWORD_RULES,
             'label' => 'Password'
         ]
     ];

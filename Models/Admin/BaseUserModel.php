@@ -18,8 +18,8 @@ abstract class BaseUserModel extends \BasicApp\User\Models\UserModel
     ];
 
     protected $validationRules = [
-        'user_email' => self::EMAIL_RULES . '|permit_empty',
-        'user_name' => 'max_length[255]',
+        'user_email' => self::EMAIL_RULES . '|not_special_chars|permit_empty',
+        'user_name' => 'max_length[255]|not_special_chars',
         'user_enabled' => 'in_list[0,1]',
         'user_password' => self::PASSWORD_RULES . '|permit_empty'
     ];

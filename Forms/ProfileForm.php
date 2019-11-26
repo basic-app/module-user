@@ -13,7 +13,7 @@ class ProfileForm extends UserModel
 
     protected $validationRules = [
         'user_name' => [
-            'rules' => 'required|max_length[255]|min_length[2]',
+            'rules' => 'required|not_special_chars|max_length[255]|min_length[2]',
             'label' => 'Name',
         ],
         'password' => [

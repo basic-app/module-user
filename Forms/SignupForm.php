@@ -17,11 +17,11 @@ class SignupForm extends \BasicApp\Core\Model
 
     protected $validationRules = [
         'username' => [
-            'rules' => 'required|max_length[255]|min_length[2]',
+            'rules' => 'required|not_special_chars|max_length[255]|min_length[2]',
             'label' => 'Name',
         ],
         'email' => [
-            'rules' => 'required|' . UserModel::EMAIL_RULES . '|is_unique[user.user_email,user_id,{user_id}]',
+            'rules' => 'required|not_special_chars|' . UserModel::EMAIL_RULES . '|is_unique[user.user_email,user_id,{user_id}]',
             'label' => 'Email',
         ],
         'password' => [

@@ -17,7 +17,7 @@ class LoginForm extends \BasicApp\Core\Model
 
     protected $validationRules = [
         'email' => [
-            'rules' => 'required|' . UserModel::EMAIL_RULES. '|' . __CLASS__ .'::validateEmail|' . __CLASS__ .'::validateVerification',
+            'rules' => 'required|not_special_chars|' . UserModel::EMAIL_RULES. '|' . __CLASS__ .'::validateEmail|' . __CLASS__ .'::validateVerification',
             'label' => 'Email'
         ],
         'password' => [
