@@ -14,7 +14,7 @@ use BasicApp\User\Forms\ResetPasswordForm;
 class User extends \BasicApp\System\Controller
 {
 
-    protected $viewPath = 'BasicApp\User';
+    protected $viewPath = 'BasicApp\User\Views\User';
 
     /**
      * Signs user up.
@@ -50,7 +50,7 @@ class User extends \BasicApp\System\Controller
 
         $data['password'] = '';
 
-        return $this->render('user/signup', [
+        return $this->render('signup', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors)
@@ -98,7 +98,7 @@ class User extends \BasicApp\System\Controller
             $data['rememberMe'] = 1;
         }
 
-        return $this->render('user/login', [
+        return $this->render('login', [
             'model' => $model,
             'errors' => array_merge((array) $model->errors(), $errors),
             'data' => $data
@@ -161,7 +161,7 @@ class User extends \BasicApp\System\Controller
             }
         }
 
-        return $this->render('user/resendVerificationEmail', [
+        return $this->render('resendVerificationEmail', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors)
@@ -199,7 +199,7 @@ class User extends \BasicApp\System\Controller
             }
         }
 
-        return $this->render('user/requestPasswordReset', [
+        return $this->render('requestPasswordReset', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors)
@@ -248,7 +248,7 @@ class User extends \BasicApp\System\Controller
             }
         }
 
-        return $this->render('user/resetPassword', [
+        return $this->render('resetPassword', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors),
