@@ -18,7 +18,7 @@ $page->setMetaTags($this);
 
 $this->data['breadcrumbs'][] = $this->data['title'];
 
-$this->data['accountMenu']['profile']['active'] = true;
+$this->data['userMenu']['profile']['active'] = true;
 
 echo PageModel::pageText($page);
 
