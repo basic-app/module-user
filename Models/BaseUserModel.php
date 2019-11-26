@@ -15,12 +15,14 @@ abstract class BaseUserModel extends \denis303\user\UserModel
     protected $returnType = User::class;
 
     protected $fieldLabels = [
-        self::FIELD_PREFIX . 'id' => 'ID',
-        self::FIELD_PREFIX  . 'created_at' => 'Created',
-        self::FIELD_PREFIX . 'email' => 'Email',
-        self::FIELD_PREFIX . 'name' => 'Name',
-        self::FIELD_PREFIX . 'enabled' => 'Enabled',
-        self::FIELD_PREFIX . 'password' => 'Password'
+        'user_id' => 'ID',
+        'user_created_at' => 'Created',
+        'user_email' => 'Email',
+        'user_name' => 'Name',
+        'user_enabled' => 'Enabled',
+        'user_password' => 'Password',
+        'user_verification_token' => 'Verification Token',
+        'user_password_reset_token' => 'Password Reset Token'
     ];
 
     public function beforeCreateUser($user, array $data)

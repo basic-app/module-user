@@ -24,6 +24,7 @@ echo $adminTheme->table([
         UserModel::fieldLabel('user_created_at'),
         UserModel::fieldLabel('user_email'),
         UserModel::fieldLabel('user_name'),
+        UserModel::fieldLabel('user_enabled'),
         '',
         ''
     ],
@@ -34,6 +35,7 @@ echo $adminTheme->table([
             $this->createColumn(['field' => 'user_created_at'])->displayMedium(),
             $this->createColumn(['field' => 'user_email'])->success(),
             $this->createColumn(['field' => 'user_name']),
+            $this->createBooleanColumn(['field' => 'user_enabled']),
             $this->createUpdateLinkColumn(['action' => 'admin/user/update']),
             $this->createDeleteLinkColumn(['action' => 'admin/user/delete'])
         ];
