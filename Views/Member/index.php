@@ -14,6 +14,8 @@ $page = PageModel::getPage('member', true, [
 
 $page->setMetaTags($this);
 
+echo PageModel::pageText($page);
+
 echo $theme->userMenu([
     'items' => SystemEvents::userMenu()
 ]);

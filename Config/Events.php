@@ -32,17 +32,23 @@ SystemEvents::onAccountMenu(function($event)
             'member' => [
                 'label' => t('user', 'My Account'),
                 'url' => Url::createUrl('member')
-            ],
-            'profile' => [
-                'label' => t('user', 'Edit Profile'),
-                'url' => Url::createUrl('member/profile')
-            ],
-            'logout' => [
-                'label' => t('user', 'Logout'),
-                'url' => Url::createUrl('member/logout')
             ]
         ];
     }
+});
+
+SystemEvents::onUserMenu(function($event)
+{
+    $event->items = [
+        'profile' => [
+            'label' => t('user', 'Edit Profile'),
+            'url' => Url::createUrl('member/profile')
+        ],
+        'logout' => [
+            'label' => t('user', 'Logout'),
+            'url' => Url::createUrl('member/logout')
+        ]
+    ];
 });
 
 AdminEvents::onMainMenu(function($event)
