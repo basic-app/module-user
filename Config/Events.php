@@ -3,6 +3,7 @@
 use BasicApp\Helpers\Url;
 use BasicApp\System\SystemEvents;
 use BasicApp\Admin\AdminEvents;
+use BasicApp\User\Components\UserFilter;
 
 SystemEvents::onPreSystem(function()
 {
@@ -55,4 +56,13 @@ AdminEvents::onMainMenu(function($event)
             'icon'  => 'fa fa-users'
         ];
     }
+});
+
+SystemEvents::onFilters(function($event)
+{
+    $event->aliases['userIsLoggedIn'] = UserFilter::class;
+
+    $event->filters['userIsLoggedIn'] = [
+        'before' => ['/member/', '/member/*']
+    ];
 });

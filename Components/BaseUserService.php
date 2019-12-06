@@ -20,12 +20,12 @@ abstract class BaseUserService extends \denis303\codeigniter4\UserService
 
     public function getLoginUrl()
     {
-        return site_url('admin/login');
+        return site_url('user/login');
     }
 
     public function getLogoutUrl()
     {
-        return site_url('admin/logout');
+        return site_url('user/logout');
     }
 
 }
