@@ -1,44 +1,76 @@
 <?php
 /**
- * @author Basic App Dev Team
+ * @author Basic App Dev Team <dev@basic-app.com>
  * @license MIT
+ * @link http://basic-app.com
  */
 namespace BasicApp\User\Database\Migrations;
 
-class CreateUserTable extends \denis303\user\CreateUserTableMigration
+class CreateUserTable extends \BasicApp\Core\Migration
 {
 
-    public function getFields()
+    public $table = 'user';
+
+    public function up()
     {
-        $return = parent::getFields();
+        $this->forge->addField([
+            'user_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'auto_increment' => true,
+                'unsigned' => true
+            ],
+            'user_name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true
+            ],
+            'user_email' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'unique' => true,
+                'null' => true            
+            ],
+            'user_password_hash' => [
+                'type' => 'VARCHAR',
+                'constraint' => '60',
+                'null' => true
+            ],
+            'user_created_at' => [ 
+                'type' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP'
+            ],
+            'user_password_reset_token' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'unique' => true,
+                'null' => true
+            ],
+            'user_verification_token' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'unique' => true,
+                'null' => true
+            ],
+            'user_verified_at' => [
+                'type' => 'DATETIME',
+                'null' => true
+            ],
+            'user_enabled' => [
+                'type' => 'TINYINT',
+                'constraint' => 1,
+                'null' => false,
+                'default' => 1
+            ]
+        ]);
 
-        $return[static::FIELD_PREFIX . 'password_reset_token'] = [
-            'type' => 'VARCHAR',
-            'constraint' => '255',
-            'unique' => true,
-            'null' => true
-        ];
+        $this->forge->addKey('user_id', true);
 
-        $return[static::FIELD_PREFIX . 'verification_token'] = [
-            'type' => 'VARCHAR',
-            'constraint' => '255',
-            'unique' => true,
-            'null' => true
-        ];
+        $this->forge->createTable($this->table);
+    }
 
-        $return[static::FIELD_PREFIX . 'verified_at'] = [
-            'type' => 'DATETIME',
-            'null' => true
-        ];
-
-        $return[static::FIELD_PREFIX . 'enabled'] = [
-            'type' => 'TINYINT',
-            'constraint' => 1,
-            'null' => false,
-            'default' => 1
-        ];
-
-        return $return;
+    public function down()
+    {
+        $this->forge->dropTable($this->table);
     }
 
 }
