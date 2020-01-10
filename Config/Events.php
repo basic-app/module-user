@@ -3,18 +3,13 @@
 use BasicApp\Helpers\Url;
 use BasicApp\System\SystemEvents;
 use BasicApp\Admin\AdminEvents;
-use BasicApp\User\Components\UserFilter;
 
-SystemEvents::onPreSystem(function()
-{
-    helper(['user']);
-});
 
 SystemEvents::onAccountMenu(function($event)
 {
     $user = service('user');
 
-    if ($user->isGuest())
+    if (!$user->getUser())
     {
         $event->items = [
             'login' => [
@@ -56,13 +51,4 @@ AdminEvents::onMainMenu(function($event)
             'icon'  => 'fa fa-users'
         ];
     }
-});
-
-SystemEvents::onFilters(function($event)
-{
-    $event->aliases['userIsLoggedIn'] = UserFilter::class;
-
-    $event->filters['userIsLoggedIn'] = [
-        'before' => ['/member/', '/member/*']
-    ];
 });

@@ -66,7 +66,7 @@ class User extends \BasicApp\System\Controller
     {
         $userService = service('user');
 
-        if (!$userService->isGuest())
+        if ($userService->getUser())
         {
             return $this->goHome();
         }
