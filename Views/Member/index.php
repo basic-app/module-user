@@ -1,6 +1,6 @@
 <?php
 
-use BasicApp\Site\Models\PageModel;
+use BasicApp\Page\Models\PageModel;
 use BasicApp\System\SystemEvents;
 
 require __DIR__ . '/_common.php';

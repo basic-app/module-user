@@ -1,6 +1,6 @@
 <?php
 
-use BasicApp\Site\Models\PageModel;
+use BasicApp\Page\Models\PageModel;
 
 /* @var $this \CodeIgniter\View\View */
 /* @var $model \BasicApp\User\Forms\SignupForm */
