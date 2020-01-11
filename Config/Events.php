@@ -1,9 +1,12 @@
 <?php
-
+/**
+ * @author Basic App Dev Team <dev@basic-app.com>
+ * @license MIT
+ * @link http://basic-app.com
+ */
 use BasicApp\Helpers\Url;
 use BasicApp\System\SystemEvents;
 use BasicApp\Admin\AdminEvents;
-
 
 SystemEvents::onAccountMenu(function($event)
 {
