@@ -52,7 +52,7 @@ if (class_exists(AdminEvents::class))
 {
     AdminEvents::onMainMenu(function($event)
     {
-        if (UserController::checkAccess())
+        if (service('admin')->can(UserController::class))
         {
             $event->items['users'] = [
                 'url'   => Url::createUrl('admin/user'),
