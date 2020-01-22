@@ -5,53 +5,60 @@
  * @link http://basic-app.com
  */
 use BasicApp\Helpers\Url;
-use BasicApp\System\SystemEvents;
+use BasicApp\Site\SiteEvents;
 use BasicApp\Admin\AdminEvents;
+use BasicApp\User\Controllers\Admin\User as UserController;
 
-SystemEvents::onAccountMenu(function($event)
+if (class_exists(SiteEvents::class))
 {
-    $user = service('user');
-
-    if (!$user->getUser())
+    SiteEvents::onAccountMenu(function($event)
     {
-        $event->items = [
-            'login' => [
-                'label' => t('user', 'Login'),
-                'url' => Url::createUrl('user/login')
-            ],
-            'signup' => [
-                'label' => t('user', 'Signup'),
-                'url' => Url::createUrl('user/signup')
-            ]
-        ];
-    }
-    else
-    {
-        $event->items = [
-            'member' => [
-                'label' => t('user', 'My Account'),
-                'url' => Url::createUrl('member')
-            ],
-            'profile' => [
-                'label' => t('user', 'Edit Profile'),
-                'url' => Url::createUrl('member/profile')
-            ],
-            'logout' => [
-                'label' => t('user', 'Logout'),
-                'url' => Url::createUrl('member/logout')
-            ]
-        ];
-    }
-});
+        $user = service('user');
 
-AdminEvents::onMainMenu(function($event)
+        if (!$user->getUser())
+        {
+            $event->items = [
+                'login' => [
+                    'label' => t('user', 'Login'),
+                    'url' => Url::createUrl('user/login')
+                ],
+                'signup' => [
+                    'label' => t('user', 'Signup'),
+                    'url' => Url::createUrl('user/signup')
+                ]
+            ];
+        }
+        else
+        {
+            $event->items = [
+                'member' => [
+                    'label' => t('user', 'My Account'),
+                    'url' => Url::createUrl('member')
+                ],
+                'profile' => [
+                    'label' => t('user', 'Edit Profile'),
+                    'url' => Url::createUrl('member/profile')
+                ],
+                'logout' => [
+                    'label' => t('user', 'Logout'),
+                    'url' => Url::createUrl('member/logout')
+                ]
+            ];
+        }
+    });
+}
+
+if (class_exists(AdminEvents::class))
 {
-    if (BasicApp\User\Controllers\Admin\User::checkAccess())
+    AdminEvents::onMainMenu(function($event)
     {
-        $event->items['users'] = [
-            'url'   => Url::createUrl('admin/user'),
-            'label' => t('admin.menu', 'Users'),
-            'icon'  => 'fa fa-users'
-        ];
-    }
-});
+        if (UserController::checkAccess())
+        {
+            $event->items['users'] = [
+                'url'   => Url::createUrl('admin/user'),
+                'label' => t('admin.menu', 'Users'),
+                'icon'  => 'fa fa-users'
+            ];
+        }
+    });
+}

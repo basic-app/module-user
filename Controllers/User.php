@@ -15,7 +15,7 @@ use BasicApp\User\Forms\PasswordResetRequestForm;
 use BasicApp\User\Forms\ResendVerificationEmailForm;
 use BasicApp\User\Forms\ResetPasswordForm;
 
-class User extends \BasicApp\System\Controller
+class User extends \BasicApp\Site\SiteController
 {
 
     protected $viewPath = 'BasicApp\User\Views\User';
