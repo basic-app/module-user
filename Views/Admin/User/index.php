@@ -18,27 +18,45 @@ $this->data['actionMenu'][] = [
 
 $adminTheme = service('adminTheme');
 
-echo $adminTheme->table([
-    'labels' => [
-        UserModel::fieldLabel('user_id'),
-        UserModel::fieldLabel('user_created_at'),
-        UserModel::fieldLabel('user_email'),
-        UserModel::fieldLabel('user_name'),
-        UserModel::fieldLabel('user_enabled'),
-        '',
-        ''
+echo $adminTheme->grid([
+    'headers' => [
+        ['class' => $adminTheme::GRID_HEADER_PRIMARY_KEY, 'content' => $model->getFieldLabel('user_id')],
+        $model->getFieldLabel('user_created_at'),
+        [
+            'class' => $adminTheme::GRID_HEADER_LABEL,
+            'content' => $model->getFieldLabel('user_email')
+        ],
+        [
+            'class' => $adminTheme::GRID_HEADER_MEDIUM, 
+            'content' => $model->getFieldLabel('user_name')
+        ],
+        $model->getFieldLabel('user_enabled'),
+        ['class' => $adminTheme::GRID_HEADER_BUTTON],
+        ['class' => $adminTheme::GRID_HEADER_BUTTON]
     ],
-    'elements' => $elements,
-    'columns' => function($model) {
-        return [
-            $this->createColumn(['field' => 'user_id'])->number()->displaySmall(),
-            $this->createColumn(['field' => 'user_created_at'])->displayMedium(),
-            $this->createColumn(['field' => 'user_email'])->success(),
-            $this->createColumn(['field' => 'user_name']),
-            $this->createBooleanColumn(['field' => 'user_enabled']),
-            $this->createUpdateLinkColumn(['action' => 'admin/user/update']),
-            $this->createDeleteLinkColumn(['action' => 'admin/user/delete'])
-        ];
+    'items' => function() use ($elements, $adminTheme) {
+
+        foreach($elements as $data)
+        {
+            yield [
+                $data->user_id,
+                $data->user_created_at,
+                $data->user_email,
+                $data->user_name,
+                [
+                    'class' => $adminTheme::GRID_CELL_BOOLEAN,
+                    'content' => $data->user_enabled
+                ],
+                [
+                    'class' => $adminTheme::GRID_CELL_BUTTON_UPDATE,
+                    'url' => Url::createUrl('admin/user/update', ['id' => $data->user_id])
+                ],
+                [
+                    'class' => $adminTheme::GRID_CELL_BUTTON_DELETE,
+                    'url' => Url::createUrl('admin/user/delete', ['id' => $data->user_id])
+                ]
+            ];
+        }
     }
 ]);
 
