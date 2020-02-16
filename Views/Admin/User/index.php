@@ -30,9 +30,9 @@ echo $adminTheme->grid([
             'class' => $adminTheme::GRID_HEADER_MEDIUM, 
             'content' => $model->getFieldLabel('user_name')
         ],
-        $model->getFieldLabel('user_enabled'),
-        ['class' => $adminTheme::GRID_HEADER_BUTTON],
-        ['class' => $adminTheme::GRID_HEADER_BUTTON]
+        ['class' => $adminTheme::GRID_HEADER_BOOLEAN, 'content' => $model->getFieldLabel('user_enabled')],
+        ['class' => $adminTheme::GRID_HEADER_BUTTON_UPDATE],
+        ['class' => $adminTheme::GRID_HEADER_BUTTON_DELETE]
     ],
     'items' => function() use ($elements, $adminTheme) {
 
@@ -43,18 +43,9 @@ echo $adminTheme->grid([
                 $data->user_created_at,
                 $data->user_email,
                 $data->user_name,
-                [
-                    'class' => $adminTheme::GRID_CELL_BOOLEAN,
-                    'content' => $data->user_enabled
-                ],
-                [
-                    'class' => $adminTheme::GRID_CELL_BUTTON_UPDATE,
-                    'url' => Url::createUrl('admin/user/update', ['id' => $data->user_id])
-                ],
-                [
-                    'class' => $adminTheme::GRID_CELL_BUTTON_DELETE,
-                    'url' => Url::createUrl('admin/user/delete', ['id' => $data->user_id])
-                ]
+                $data->user_enabled,
+                ['url' => Url::createUrl('admin/user/update', ['id' => $data->user_id])],
+                ['url' => Url::createUrl('admin/user/delete', ['id' => $data->user_id])]
             ];
         }
     }
