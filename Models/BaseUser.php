@@ -7,8 +7,9 @@
 namespace BasicApp\User\Models;
 
 use BasicApp\Behaviors\EntitySetNullBehavior;
+use BasicApp\Member\UserInterface;
 
-abstract class BaseUser extends \denis303\user\User
+abstract class BaseUser extends \denis303\user\User implements UserInterface
 {
 
     protected $modelClass = UserModel::class;

@@ -87,14 +87,13 @@ class User extends \BasicApp\Site\SiteController
 
             $user = $model->getUser();
 
-            if ($userService->login($user, $rememberMe, $error))
-            {
-                return $this->goHome();
-            }
-            else
-            {
-                $errors[] = $error;
-            }
+            $userService->login($user, $rememberMe);
+
+            return $this->goHome();
+        }
+        else
+        {
+            $errors = (array) $model->errors();
         }
 
         if (!$data)
@@ -104,7 +103,7 @@ class User extends \BasicApp\Site\SiteController
 
         return $this->render('login', [
             'model' => $model,
-            'errors' => array_merge((array) $model->errors(), $errors),
+            'errors' => $errors,
             'data' => $data
         ]);        
     }
