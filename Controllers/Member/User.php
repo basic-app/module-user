@@ -7,8 +7,9 @@
 namespace BasicApp\User\Controllers\Member;
 
 use BasicApp\User\Forms\ProfileForm;
+use CodeIgniter\Entity;
 
-class User extends \BasicApp\User\MemberController
+class User extends \BasicApp\Member\MemberController
 {
 
     protected $viewPath = 'BasicApp\User\Views\Member';
@@ -32,7 +33,7 @@ class User extends \BasicApp\User\MemberController
     {
         $model = new ProfileForm;
 
-        $data = new \CodeIgniter\Entity;
+        $data = new Entity;
 
         $data->fill($this->user->toArray());
 

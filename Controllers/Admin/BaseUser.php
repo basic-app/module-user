@@ -11,10 +11,10 @@ use BasicApp\User\Models\Admin\UserModel;
 abstract class BaseUser extends \BasicApp\Admin\AdminCrudController
 {
 
-	protected $modelClass = UserModel::class;
+    protected $modelClass = UserModel::class;
 
-	protected $viewPath = 'BasicApp\User\Admin\User';
+    protected $viewPath = 'BasicApp\User\Admin\User';
 
-	protected $returnUrl = 'admin/user';
+    protected $returnUrl = 'admin/user';
 
 }
