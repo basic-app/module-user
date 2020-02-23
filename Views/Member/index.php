@@ -1,7 +1,7 @@
 <?php
 
 use BasicApp\Page\Models\PageModel;
-use BasicApp\System\SystemEvents;
+use BasicApp\Member\MemberEvents;
 
 require __DIR__ . '/_common.php';
 
@@ -17,5 +17,5 @@ $page->setMetaTags($this);
 echo PageModel::pageText($page);
 
 echo $theme->userMenu([
-    'items' => SystemEvents::userMenu()
+    'items' => MemberEvents::memberMenu()
 ]);
