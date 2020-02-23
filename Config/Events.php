@@ -17,32 +17,26 @@ if (class_exists(SiteEvents::class))
 
         if (!$user->getUser())
         {
-            $event->items = [
-                'login' => [
-                    'label' => t('user', 'Login'),
-                    'url' => Url::createUrl('user/login')
-                ],
-                'signup' => [
-                    'label' => t('user', 'Signup'),
-                    'url' => Url::createUrl('user/signup')
-                ]
+            $event->items['login'] = [
+                'label' => t('user', 'Login'),
+                'url' => Url::createUrl('user/login')
+            ];
+
+            $event->items['signup'] = [
+                'label' => t('user', 'Signup'),
+                'url' => Url::createUrl('user/signup')
             ];
         }
         else
         {
-            $event->items = [
-                'member' => [
-                    'label' => t('user', 'My Account'),
-                    'url' => Url::createUrl('member')
-                ],
-                'profile' => [
-                    'label' => t('user', 'Edit Profile'),
-                    'url' => Url::createUrl('member/profile')
-                ],
-                'logout' => [
-                    'label' => t('user', 'Logout'),
-                    'url' => Url::createUrl('member/logout')
-                ]
+            $event->items['profile'] = [
+                'label' => t('user', 'Edit Profile'),
+                'url' => Url::createUrl('user/profile')
+            ];
+
+            $event->items['logout'] = [
+                'label' => t('user', 'Logout'),
+                'url' => Url::createUrl('user/logout')
             ];
         }
     });
