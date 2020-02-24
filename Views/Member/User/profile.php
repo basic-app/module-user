@@ -3,13 +3,13 @@
 use BasicApp\Page\Models\PageModel;
 
 /* @var $this \CodeIgniter\View\View */
-/* @var $model \BasicApp\User\Forms\SignupForm */
+/* @var $model \BasicApp\User\Forms\ProfileForm */
 
 require __DIR__ . '/_common.php';
 
 $theme = service('theme');
 
-$page = PageModel::getPage('member/profile', true, [
+$page = PageModel::getPage('member/user/profile', true, [
     'page_name' => 'Edit Profile',
     'page_text' => '<p>Please fill out the following fields:</p>'
 ]);
