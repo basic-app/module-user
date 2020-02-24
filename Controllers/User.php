@@ -14,8 +14,6 @@ use BasicApp\User\Forms\SignupForm;
 use BasicApp\User\Forms\PasswordResetRequestForm;
 use BasicApp\User\Forms\ResendVerificationEmailForm;
 use BasicApp\User\Forms\ResetPasswordForm;
-use BasicApp\User\Forms\ProfileForm;
-use CodeIgniter\Entity;
 
 class User extends \BasicApp\Site\SiteController
 {
@@ -261,62 +259,5 @@ class User extends \BasicApp\Site\SiteController
             'token' => $token
         ]);
     }
-
-    /**
-     * Edit profile.
-     *
-     * @return mixed
-     */
-    public function profile()
-    {
-        $user = service('user')->getUser();
-
-        $model = new ProfileForm;
-
-        $data = new Entity;
-
-        $data->fill($user->toArray());
-
-        $post = $this->request->getPost();
-
-        $errors = [];
-
-        if ($post)
-        {
-            $data->fill($post);
-
-            if ($model->saveProfile($data, $error))
-            {
-                $session = service('session');
-
-                $session->setFlashdata('success', 'Profile updated successfully.');
-            }
-            else
-            {
-                $errors[] = $error;
-            }
-        }
-
-        $data->password = '';
-
-        return $this->render('profile', [
-            'model' => $model,
-            'data' => $data,
-            'errors' => array_merge((array) $model->errors(), $errors)
-        ]);
-    }
-
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
-    public function logout()
-    {
-        service('user')->logout();
-
-        return $this->goHome();
-    }
-
 
 }
