@@ -5,13 +5,13 @@
  * @link http://basic-app.com
  */
 use BasicApp\Helpers\Url;
-use BasicApp\Site\SiteEvents;
+use BasicApp\Member\MemberEvents;
 use BasicApp\Admin\AdminEvents;
 use BasicApp\User\Controllers\Admin\User as UserController;
 
-if (class_exists(SiteEvents::class))
+if (class_exists(MemberEvents::class))
 {
-    SiteEvents::onAccountMenu(function($event)
+    MemberEvents::onAccountMenu(function($event)
     {
         $user = service('user');
 
