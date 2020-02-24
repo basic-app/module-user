@@ -31,12 +31,12 @@ if (class_exists(SiteEvents::class))
         {
             $event->items['profile'] = [
                 'label' => t('user', 'Edit Profile'),
-                'url' => Url::createUrl('user/profile')
+                'url' => Url::createUrl('member/user/profile')
             ];
 
             $event->items['logout'] = [
                 'label' => t('user', 'Logout'),
-                'url' => Url::createUrl('user/logout')
+                'url' => Url::createUrl('logout')
             ];
         }
     });
