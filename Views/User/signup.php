@@ -16,7 +16,7 @@ $page = PageModel::getPage('user/signup', true, [
 
 $page->setMetaTags($this);
 
-$this->data['breadcrumbs'][] = $this->data['title'];
+$this->data['breadcrumbs'][] = $page->page_name;
 
 $this->data['accountMenu']['signup']['active'] = true;
 

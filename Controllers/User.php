@@ -180,6 +180,8 @@ class User extends \BasicApp\Site\SiteController
     {
         $model = new PasswordResetRequestForm;
 
+        $model->validate([]);
+
         $data = $this->request->getPost();
 
         $errors = [];

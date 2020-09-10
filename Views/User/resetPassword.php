@@ -16,7 +16,7 @@ $page = PageModel::getPage('user/resetPassword', true, [
 
 $page->setMetaTags($this);
 
-$this->data['breadcrumbs'][] = $this->data['title'];
+$this->data['breadcrumbs'][] = $page->page_name;
 
 echo PageModel::pageText($page);
 

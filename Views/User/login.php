@@ -22,9 +22,7 @@ $page->setParams([
 
 $page->setMetaTags($this);
 
-$this->data['cardTitle'] = $page->page_name;
-
-$this->data['breadcrumbs'][] = $this->data['title'];
+$this->data['breadcrumbs'][] = $page->page_name;
 
 $this->data['accountMenu']['login']['active'] = true;
 

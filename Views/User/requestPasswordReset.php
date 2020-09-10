@@ -14,7 +14,7 @@ $page = PageModel::getPage('user/requestPasswordReset', true, [
 
 $page->setMetaTags($this);
 
-$this->data['breadcrumbs'][] = $this->data['title'];
+$this->data['breadcrumbs'][] = $page->page_name;
 
 $theme = service('theme');
 
