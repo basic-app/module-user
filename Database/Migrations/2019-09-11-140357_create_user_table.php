@@ -6,7 +6,7 @@
  */
 namespace BasicApp\User\Database\Migrations;
 
-class CreateUserTable extends \BasicApp\Core\Migration
+class CreateUserTable extends \BasicApp\Migration\BaseMigration
 {
 
     public $table = 'user';

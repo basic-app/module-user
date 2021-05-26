@@ -11,6 +11,7 @@
         ]
     },
     "require": {
+        "basic-app/migration": "*",
         "denis303/codeigniter4-user": "*",
         "basic-app/module-page": "*",
         "basic-app/module-message": "*"
