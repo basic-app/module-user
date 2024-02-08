@@ -1,8 +1,7 @@
 <?php
 /**
- * @author Basic App Dev Team <dev@basic-app.com>
+ * @author Basic App Dev Team
  * @license MIT
- * @link http://basic-app.com
  */
 namespace BasicApp\User\Controllers\Member;
 
@@ -21,7 +20,7 @@ class User extends \BasicApp\Member\MemberController
      */
     public function profile()
     {
-        $user = service('user')->getUser();
+        $user = service('auth')->getUser();
 
         $model = new ProfileForm;
 
@@ -65,7 +64,7 @@ class User extends \BasicApp\Member\MemberController
      */
     public function logout()
     {
-        service('user')->logout();
+        service('auth')->logout();
 
         return $this->goHome();
     }

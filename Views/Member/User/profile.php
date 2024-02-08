@@ -16,6 +16,8 @@ $page = PageModel::getPage('member/user/profile', true, [
 
 $page->setMetaTags($this);
 
+$this->data['title'] = t('site', 'Profile');
+
 $this->data['breadcrumbs'][] = $this->data['title'];
 
 $this->data['userMenu']['profile']['active'] = true;

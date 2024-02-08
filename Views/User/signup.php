@@ -32,7 +32,7 @@ echo $form->inputGroup($data, 'email');
 
 echo $form->passwordGroup($data, 'password');
 
-echo $form->renderErrors();
+echo $form->renderErrors($errors);
 
 echo $form->beginButtons();
 

@@ -68,7 +68,7 @@ class User extends \BasicApp\Site\SiteController
      */
     public function login()
     {
-        $userService = service('user');
+        $userService = service('auth');
 
         if ($userService->getUser())
         {
@@ -87,7 +87,7 @@ class User extends \BasicApp\Site\SiteController
 
             $user = $model->getUser();
 
-            $userService->login($user, $rememberMe);
+            $userService->login($user->getPrimaryKey(), $rememberMe);
 
             return $this->goHome();
         }

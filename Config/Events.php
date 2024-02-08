@@ -13,7 +13,7 @@ if (class_exists(MemberEvents::class))
 {
     MemberEvents::onAccountMenu(function($event)
     {
-        $user = service('user');
+        $user = service('auth');
 
         if (!$user->getUser())
         {
@@ -46,13 +46,10 @@ if (class_exists(AdminEvents::class))
 {
     AdminEvents::onMainMenu(function($event)
     {
-        if (service('admin')->can(UserController::class))
-        {
-            $event->items['users'] = [
-                'url'   => Url::createUrl('admin/user'),
-                'label' => t('admin.menu', 'Users'),
-                'icon'  => 'fa fa-users'
-            ];
-        }
+        $event->items['users'] = [
+            'url'   => Url::createUrl('admin/user'),
+            'label' => t('admin.menu', 'Users'),
+            'icon'  => 'fa fa-users'
+        ];
     });
 }
