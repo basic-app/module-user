@@ -8,6 +8,7 @@ use BasicApp\Helpers\Url;
 use BasicApp\Member\MemberEvents;
 use BasicApp\Admin\AdminEvents;
 use BasicApp\User\Controllers\Admin\User as UserController;
+use BasicApp\AdminMenu\AdminMenuEvents;
 
 if (class_exists(MemberEvents::class))
 {
@@ -42,9 +43,9 @@ if (class_exists(MemberEvents::class))
     });
 }
 
-if (class_exists(AdminEvents::class))
+if (class_exists(AdminMenuEvents::class))
 {
-    AdminEvents::onMainMenu(function($event)
+    AdminMenuEvents::onMainMenu(function($event)
     {
         $event->items['users'] = [
             'url'   => Url::createUrl('admin/user'),
