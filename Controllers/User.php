@@ -68,9 +68,9 @@ class User extends \BasicApp\Site\SiteController
      */
     public function login()
     {
-        $userService = service('auth');
+        helper(['auth', 'user']);
 
-        if ($userService->getUser())
+        if (user())
         {
             return $this->goHome();
         }
@@ -87,7 +87,7 @@ class User extends \BasicApp\Site\SiteController
 
             $user = $model->getUser();
 
-            $userService->login($user->getPrimaryKey(), $rememberMe);
+            user_id($user->getPrimaryKey(), $rememberMe);
 
             return $this->goHome();
         }
@@ -261,5 +261,4 @@ class User extends \BasicApp\Site\SiteController
             'token' => $token
         ]);
     }
-
 }

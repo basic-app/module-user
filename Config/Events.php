@@ -14,9 +14,9 @@ if (class_exists(MemberEvents::class))
 {
     MemberEvents::onAccountMenu(function($event)
     {
-        $user = service('auth');
+        helper(['user']);
 
-        if (!$user->getUser())
+        if (!user())
         {
             $event->items['login'] = [
                 'label' => t('user', 'Login'),
