@@ -6,7 +6,7 @@
 namespace BasicApp\User\Controllers\Member;
 
 use BasicApp\User\Forms\ProfileForm;
-use CodeIgniter\Entity;
+use CodeIgniter\Entity\Entity;
 
 class User extends \BasicApp\Member\MemberController
 {
@@ -20,7 +20,9 @@ class User extends \BasicApp\Member\MemberController
      */
     public function profile()
     {
-        $user = service('auth')->getUser();
+        helper(['user']);
+
+        $user = user();
 
         $model = new ProfileForm;
 
@@ -64,9 +66,10 @@ class User extends \BasicApp\Member\MemberController
      */
     public function logout()
     {
-        service('auth')->logout();
+        helper(['auth']);
+
+        user_id(0);
 
         return $this->goHome();
     }
-
 }
