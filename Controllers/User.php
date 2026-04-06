@@ -87,7 +87,7 @@ class User extends \BasicApp\Site\SiteController
 
             $user = $model->getUser();
 
-            user_id($user->getPrimaryKey(), $rememberMe);
+            login($user->getPrimaryKey(), $rememberMe);
 
             return $this->goHome();
         }

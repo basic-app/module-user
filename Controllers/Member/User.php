@@ -68,7 +68,7 @@ class User extends \BasicApp\Member\MemberController
     {
         helper(['auth']);
 
-        user_id(0);
+        logout();
 
         return $this->goHome();
     }
