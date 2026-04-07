@@ -2,13 +2,19 @@
 
 require __DIR__ . '/_common.php';
 
-$this->data['breadcrumbs'][] = ['label' => t('admin', 'Update')];
+$this->tempData['breadcrumbs'][] = ['label' => t('admin', 'Update')];
 
-$this->data['enableCard'] = true;
+$this->tempData['enableCard'] = true;
 
-$this->data['cardTitle'] = $this->data['title'];
+$this->tempData['cardTitle'] = $this->tempData['title'];
+
+$this->extend('BasicApp\Admin/layouts/app');
+
+$this->section('content');
 
 echo app_view('BasicApp\User\Admin\User\_form', [
     'model' => $model,
     'errors' => $errors
 ]);
+
+$this->endSection();
