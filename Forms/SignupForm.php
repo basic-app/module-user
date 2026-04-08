@@ -16,7 +16,6 @@ use BasicApp\Message\Models\MessageModel;
  */
 class SignupForm extends \BasicApp\Core\Model
 {
-
     protected $returnType = 'array';
 
     protected $validationRules = [
@@ -25,7 +24,7 @@ class SignupForm extends \BasicApp\Core\Model
             'label' => 'Name',
         ],
         'email' => [
-            'rules' => 'required|not_special_chars|' . UserModel::EMAIL_RULES . '|is_unique[user.user_email,user_id,{user_id}]',
+            'rules' => 'required|not_special_chars|' . UserModel::EMAIL_RULES . '|is_unique[user.user_email]',
             'label' => 'Email',
         ],
         'password' => [
@@ -72,5 +71,4 @@ class SignupForm extends \BasicApp\Core\Model
             'message_body' => '{verifyLink}'
         ])->sendToUser($user, $params, $error);
     }
-
 }
