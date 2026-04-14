@@ -8,7 +8,17 @@ use BasicApp\Helpers\Url;
 
 require __DIR__ . '/_common.php';
 
-$theme = service('theme');
+helper(['form']);
+
+$this->setVar('navMenuActiveItem', 'login');
+
+?>
+
+<?= $this->extend('BasicApp\Site\layouts/app-card');?>
+
+<?= $this->section('cardBody');?>
+
+<?php
 
 $page = PageModel::getPage('user/login', true, [
     'page_name' => 'Login',
@@ -22,15 +32,12 @@ $page->setParams([
 
 $page->setMetaTags($this);
 
-$this->data['breadcrumbs'][] = $page->page_name;
-
-$this->data['accountMenu']['login']['active'] = true;
-
 echo PageModel::pageText($page);
 
-echo app_view('BasicApp\User\Views\User\login-form', [
+echo view('BasicApp\User\login-form', [
     'model' => $model, 
     'errors' => $errors, 
-    'data' => $data,
-    'theme' => $theme
+    'data' => $data
 ]);?>
+
+<?= $this->endSection();?>

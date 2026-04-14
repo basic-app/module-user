@@ -14,12 +14,10 @@ use BasicApp\User\Forms\SignupForm;
 use BasicApp\User\Forms\PasswordResetRequestForm;
 use BasicApp\User\Forms\ResendVerificationEmailForm;
 use BasicApp\User\Forms\ResetPasswordForm;
+use App\Controllers\BaseController;
 
-class User extends \BasicApp\Site\SiteController
+class User extends BaseController
 {
-
-    protected $viewPath = 'BasicApp\User\Views\User';
-
     /**
      * Signs user up.
      *
@@ -54,7 +52,7 @@ class User extends \BasicApp\Site\SiteController
 
         $data['password'] = '';
 
-        return $this->render('signup', [
+        return view('BasicApp\User\signup', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors)
@@ -68,9 +66,9 @@ class User extends \BasicApp\Site\SiteController
      */
     public function login()
     {
-        helper(['auth', 'user']);
+        helper(['auth']);
 
-        if (user())
+        if (user_id())
         {
             return $this->goHome();
         }
@@ -101,7 +99,7 @@ class User extends \BasicApp\Site\SiteController
             $data['rememberMe'] = 1;
         }
 
-        return $this->render('login', [
+        return view('BasicApp\User\login', [
             'model' => $model,
             'errors' => $errors,
             'data' => $data
@@ -164,7 +162,7 @@ class User extends \BasicApp\Site\SiteController
             }
         }
 
-        return $this->render('resendVerificationEmail', [
+        return view('BasicApp\User\resendVerificationEmail', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors)
@@ -204,7 +202,7 @@ class User extends \BasicApp\Site\SiteController
             }
         }
 
-        return $this->render('requestPasswordReset', [
+        return view('BasicApp\User\requestPasswordReset', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors)
@@ -253,7 +251,7 @@ class User extends \BasicApp\Site\SiteController
             }
         }
 
-        return $this->render('resetPassword', [
+        return view('BasicApp\User\resetPassword', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors),
