@@ -6,9 +6,10 @@
  */
 namespace BasicApp\User\Models;
 
-abstract class BaseUserModel extends \denis303\user\UserModel
-{
+use CodeIgniter\Model;
 
+abstract class BaseUserModel extends Model
+{
     const EMAIL_RULES = 'max_length[255]|valid_email|min_length[2]';
 
     const PASSWORD_RULES = 'max_length[72]|min_length[5]';
@@ -120,5 +121,4 @@ abstract class BaseUserModel extends \denis303\user\UserModel
 
         return true;
     }
-
 }

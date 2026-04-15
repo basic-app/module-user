@@ -1,14 +1,11 @@
 <?php
 
-use BasicApp\Page\Models\PageModel;
-use BasicApp\Helpers\Url;
-
 /* @var $this \CodeIgniter\View\View */
 /* @var $model \BasicApp\User\Forms\LoginForm */
 
-require __DIR__ . '/_common.php';
+helper(['language', 'url', 'form']);
 
-helper(['form']);
+require __DIR__ . '/_common.php';
 
 $this->setVar('navMenuActiveItem', 'login');
 
@@ -18,26 +15,40 @@ $this->setVar('navMenuActiveItem', 'login');
 
 <?= $this->section('cardBody');?>
 
-<?php
+<p><?= lang('If you forgot your password you <a href="{resetPasswordUrl}">can reset it</a>. Need new verification email? <a href="{resendVerificationUrl}">Resend</a>.', [
+    'resetPasswordUrl' => site_url('user/requestPasswordReset'),
+    'resendVerificationUrl' => site_url('user/resendVerificationEmail')
+]);?></p>
 
-$page = PageModel::getPage('user/login', true, [
-    'page_name' => 'Login',
-    'page_text' => '<p>If you forgot your password you <a href="{resetPasswordUrl}">can reset it</a>. Need new verification email? <a href="{resendVerificationUrl}">Resend</a>.</p>' . '<p> Please fill out the following fields to login:</p>'
-]);
+<p><?= lang('Please fill out the following fields to login:');?></p>
 
-$page->setParams([
-    '{resetPasswordUrl}' => Url::createUrl('user/requestPasswordReset'),
-    '{resendVerificationUrl}' => Url::createUrl('user/resendVerificationEmail')
-]);
-
-$page->setMetaTags($this);
-
-echo PageModel::pageText($page);
-
-echo view('BasicApp\User\login-form', [
-    'model' => $model, 
-    'errors' => $errors, 
-    'data' => $data
-]);?>
+<form method="POST" action="<?= site_url('user/login');?>">
+    <div class="mb-3">
+        <label><?= lang('E-mail');?>:</label>
+        <input name="email" 
+            type="email" 
+            class="form-control"
+            value="<?= set_value('email', $data['email'] ?? '');?>" 
+            autofocus />
+    </div>
+    <div class="mb-3">
+        <label><?= lang('Password');?>:</label>
+        <input name="password" class="form-control" type="password" value="" />
+    </div>
+    <div class="mb-3">
+        <input type="hidden" name="rememberMe" value="0" />
+        <label><?= form_checkbox([
+            'name' => 'rememberMe',
+            'value' => 1,
+            'checked' => set_value('rememberMe', $data['rememberMe'] ?? 1) == 1
+        ]);?> <?= lang('Remember Me');?></label>
+    </div>
+    <?php foreach($errors as $error):?>
+        <div class="alert alert-danger"><?= $error;?></div>
+    <?php endforeach;?>
+    <div class="mb-5">
+        <button type="submit" class="btn btn-primary"><?= lang('Submit');?></button>
+    </div>
+</form>
 
 <?= $this->endSection();?>

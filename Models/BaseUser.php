@@ -8,8 +8,9 @@ namespace BasicApp\User\Models;
 
 use BasicApp\Behaviors\EntitySetNullBehavior;
 use BasicApp\Member\UserInterface;
+use CodeIgniter\Entity\Entity;
 
-abstract class BaseUser extends \denis303\user\User implements UserInterface
+abstract class BaseUser extends Entity implements UserInterface
 {
 
     protected $modelClass = UserModel::class;
