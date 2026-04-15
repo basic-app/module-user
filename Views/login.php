@@ -15,6 +15,8 @@ $this->setVar('navMenuActiveItem', 'login');
 
 <?= $this->section('cardBody');?>
 
+<h1><?= lang('Login');?></h1>
+
 <p><?= lang('If you forgot your password you <a href="{resetPasswordUrl}">can reset it</a>. Need new verification email? <a href="{resendVerificationUrl}">Resend</a>.', [
     'resetPasswordUrl' => site_url('user/requestPasswordReset'),
     'resendVerificationUrl' => site_url('user/resendVerificationEmail')

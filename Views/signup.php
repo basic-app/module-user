@@ -9,20 +9,17 @@ require __DIR__ . '/_common.php';
 
 helper(['form']);
 
-$page = PageModel::getPage('user/signup', true, [
-    'page_name' => 'Signup',
-    'page_text' => '<p>Please fill out the following fields to signup:</p>'
-]);
-
-$page->setMetaTags($this);
-
 $this->setVar('navMenuActiveItem', 'signup');
 ?>
 <?= $this->extend('BasicApp\Site\layouts/app-card');?>
 
 <?= $this->section('cardBody');?>
 
-<form method="POST" action="<?= site_url('user/login');?>">
+<h1><?= lang('Signup');?></h1>
+
+<p><?= lang('Please fill out the following fields to signup:');?></p>
+
+<form method="POST" action="<?= site_url('user/signup');?>">
     <div class="mb-3">
         <label><?= lang('Username');?>:</label>
         <input name="username" 
@@ -46,7 +43,7 @@ $this->setVar('navMenuActiveItem', 'signup');
         <div class="alert alert-danger"><?= $error;?></div>
     <?php endforeach;?>
     <div class="mb-5">
-        <button type="submit" class="btn btn-primary"><?= lang('Submit');?></button>
+        <button type="submit" class="btn btn-primary"><?= lang('Signup');?></button>
     </div>
 </form>
 <?= $this->endSection();?>

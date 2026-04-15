@@ -70,6 +70,6 @@ class User extends \BasicApp\Member\MemberController
 
         logout();
 
-        return $this->goHome();
+        return redirect('/');
     }
 }

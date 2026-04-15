@@ -42,7 +42,7 @@ class User extends BaseController
                     'Thank you for registration. Please check your inbox for verification email.'
                 );
             
-                return $this->goHome();
+                return redirect('/');
             }
             else
             {
@@ -70,7 +70,7 @@ class User extends BaseController
 
         if (user_id())
         {
-            return $this->goHome();
+            return redirect('/');
         }
 
         $model = new LoginForm;
@@ -87,7 +87,7 @@ class User extends BaseController
 
             login($user->getPrimaryKey(), $rememberMe);
 
-            return $this->goHome();
+            return redirect('/');
         }
         else
         {
@@ -130,7 +130,7 @@ class User extends BaseController
 
         $session->setFlashdata('success', 'Your email has been confirmed!');
 
-        return $this->redirect(site_url('user/login'));
+        return redirect('user/login');
     }
 
     /**
@@ -154,7 +154,7 @@ class User extends BaseController
 
                 $session->setFlashdata('success', 'Check your email for further instructions.');
             
-                return $this->goHome();
+                return redirect('/');
             }
             else
             {
@@ -192,7 +192,7 @@ class User extends BaseController
 
                 $session->setFlashdata('success', 'Check your email for further instructions.');
 
-                return $this->goHome();
+                return redirect('/');
             }
             else
             {
@@ -243,7 +243,7 @@ class User extends BaseController
 
                 $session->setFlashdata('success', 'New password saved.');
 
-                return $this->redirect(site_url('user/login'));
+                return redirect('user/login');
             }
             else
             {

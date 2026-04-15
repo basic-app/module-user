@@ -6,14 +6,15 @@
  */
 namespace BasicApp\User\Models;
 
-use CodeIgniter\Model;
+use BasicApp\Core\Model;
 
 abstract class BaseUserModel extends Model
 {
     const EMAIL_RULES = 'max_length[255]|valid_email|min_length[2]';
-
     const PASSWORD_RULES = 'max_length[72]|min_length[5]';
 
+    protected $table = 'user';
+    protected $primaryKey = 'user_id';
     protected $returnType = User::class;
 
     protected $fieldLabels = [
@@ -120,5 +121,121 @@ abstract class BaseUserModel extends Model
         $user = UserModel::findByPk($id);
 
         return true;
+    }
+
+   public static function createUser(array $data, &$error = null)
+    {
+        $modelClass = get_called_class();
+
+        $model = new $modelClass;
+
+        $class = $model->returnType;
+
+        $user = new $class;
+
+        if (array_key_exists('user_password', $data))
+        {
+            static::setUserPassword($user, $data['user_password']);
+
+            unset($data['user_password']);
+        }
+
+        foreach($data as $key => $value)
+        {
+            $user->$key = trim(strip_tags($value));
+        }
+
+        $model->beforeCreateUser($user, $data);
+
+        $model->protect(false);
+
+        if (!$model->save($user))
+        {
+            $errors = $model->errors();
+
+            if ($errors)
+            {
+                $error = array_shift($errors);
+            }
+            else
+            {
+                $error = 'Unknown error.';
+            }
+
+            return false;
+        }
+
+        $id = $model->getInsertID();
+
+        $model = new $modelClass;
+
+        return $model->find($id);
+    }
+
+    public static function setUserPassword($user, string $password)
+    {
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+    
+        static::setUserField($user, 'password_hash', $password_hash);
+    }
+
+    public static function setUserField($user, string $field, $value, bool $applyPrefix = true)
+    {
+        if ($applyPrefix)
+        {
+            $field = 'user_' . $field;
+        }
+
+        if (is_array($user))
+        {
+            $user[$field] = $value;
+        }
+        else
+        {
+            $user->$field = $value;
+        }
+    }
+
+    public static function getUserEmail($user)
+    {
+        return static::getUserField($user, 'email', true);
+    }
+
+    public static function getUserName($user)
+    {
+        return static::getUserField($user, 'name', true);
+    }
+
+    public static function validateUserPassword($user, string $password) : bool
+    {
+        $password_hash = static::getUserField($user, 'password_hash');
+
+        return password_verify($password, $password_hash);
+    }
+
+    public static function getUserField($user, string $field, bool $applyPrefix = true)
+    {
+        if ($applyPrefix)
+        {
+            $field = 'user_' . $field;
+        }
+
+        if (is_array($user))
+        {
+            return $user[$field];
+        }
+        else
+        {
+            return $user->$field;
+        }
+    }
+
+    public static function findByEmail($email)
+    {
+        $class = get_called_class();
+
+        $model = new $class;
+
+        return $model->where(['user_email' => $email])->first();
     }
 }

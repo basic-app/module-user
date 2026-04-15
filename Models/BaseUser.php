@@ -8,11 +8,10 @@ namespace BasicApp\User\Models;
 
 use BasicApp\Behaviors\EntitySetNullBehavior;
 use BasicApp\Member\UserInterface;
-use CodeIgniter\Entity\Entity;
+use BasicApp\Core\Entity;
 
 abstract class BaseUser extends Entity implements UserInterface
 {
-
     protected $modelClass = UserModel::class;
 
     public function behaviors()
@@ -36,5 +35,4 @@ abstract class BaseUser extends Entity implements UserInterface
     {
         return UserModel::getUserResetPasswordUrl($this);
     }
-    
 }
