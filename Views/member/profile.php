@@ -41,18 +41,16 @@ $this->setVar('navMenuActiveItem', 'profile');
         <label><?= lang('User Password');?>:</label>
         <input name="password" class="form-control" type="password" value="" />
     </div>
+    
     <?php foreach($errors as $error):?>
-        <div class="alert alert-danger"><?= $error;?></div>
+        <?= view_cell('Site::alertDanger', ['slot' => $error]);?>
     <?php endforeach;?>
 
-    <?= view_cell('Site::errors', ['errors' => $errors]);?>
-
     <div class="mb-5">
-        <button type="submit" class="btn btn-primary"><?= lang('Update');?></button>
+        <?= view_cell('Site::submitButton', [
+            'slot' => lang('Update')
+        ]);?>
     </div>
-
-
-
 </form>
 
 <?= $this->endSection();?>
