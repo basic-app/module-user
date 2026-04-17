@@ -7,7 +7,5 @@
         }
     },
     "require": {
-        "basic-app/migration": "*",
-        "basic-app/module-message": "*"
     }
 }

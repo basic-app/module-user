@@ -6,9 +6,10 @@
  */
 namespace BasicApp\User\Database\Migrations;
 
-class CreateUserTable extends \BasicApp\Migration\BaseMigration
-{
+use CodeIgniter\Database\Migration;
 
+class CreateUserTable extends Migration
+{
     public $table = 'user';
 
     public function up()
@@ -72,5 +73,4 @@ class CreateUserTable extends \BasicApp\Migration\BaseMigration
     {
         $this->forge->dropTable($this->table);
     }
-
 }

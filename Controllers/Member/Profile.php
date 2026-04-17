@@ -7,18 +7,16 @@ namespace BasicApp\User\Controllers\Member;
 
 use BasicApp\User\Forms\ProfileForm;
 use CodeIgniter\Entity\Entity;
+use App\Controllers\BaseController;
 
-class User extends \BasicApp\Member\MemberController
+class Profile extends BaseController
 {
-
-    protected $viewPath = 'BasicApp\User\Views\Member\User';
-
     /**
      * Edit profile.
      *
      * @return mixed
      */
-    public function profile()
+    public function index()
     {
         helper(['user']);
 
@@ -52,24 +50,10 @@ class User extends \BasicApp\Member\MemberController
 
         $data->password = '';
 
-        return $this->render('profile', [
+        return view('BasicApp\User\member/profile', [
             'model' => $model,
             'data' => $data,
             'errors' => array_merge((array) $model->errors(), $errors)
         ]);
-    }
-
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
-    public function logout()
-    {
-        helper(['auth']);
-
-        logout();
-
-        return redirect('/');
     }
 }
