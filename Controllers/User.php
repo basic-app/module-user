@@ -102,8 +102,13 @@ class User extends BaseController
         return view('BasicApp\User\login', [
             'model' => $model,
             'errors' => $errors,
-            'data' => $data
-        ]);        
+            'data' => $data,
+            'attributes' => [
+                'email' => lang('E-mail'),
+                'password' => lang('Password'),
+                'rememberMe' => lang('Remember Me')
+            ]
+        ]);
     }
 
     /**

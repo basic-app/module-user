@@ -25,31 +25,46 @@ $this->setVar('navMenuActiveItem', 'login');
 <p><?= lang('Please fill out the following fields to login:');?></p>
 
 <form method="POST" action="<?= site_url('user/login');?>">
-    <div class="mb-3">
-        <label><?= lang('E-mail');?>:</label>
-        <input name="email" 
-            type="email" 
-            class="form-control"
-            value="<?= set_value('email', $data['email'] ?? '');?>" 
-            autofocus />
-    </div>
-    <div class="mb-3">
-        <label><?= lang('Password');?>:</label>
-        <input name="password" class="form-control" type="password" value="" />
-    </div>
-    <div class="mb-3">
-        <input type="hidden" name="rememberMe" value="0" />
-        <label><?= form_checkbox([
+    
+    <?= view_cell('Site::formInputGroup', [
+        'attributes' => [
+            'type' => 'email',
+            'name' => 'email',
+            'value' => set_value('email', $data['email'] ?? ''),
+            'autofocus' => true
+        ],
+        'label' => $attributes['email'] ?? 'email',
+        'error' => $errors['email'] ?? null
+    ]);?>
+
+    <?= view_cell('Site::formPasswordGroup', [
+        'attributes' => [
+            'name' => 'password'
+        ],
+        'label' => $attributes['password'] ?? 'password',
+        'error' => $errors['password'] ?? null
+    ]);?>
+    
+    <?= view_cell('Site::formCheckboxGroup', [
+        'attributes' => [
             'name' => 'rememberMe',
+            'id' => 'rememberMe-checkbox',
             'value' => 1,
+            'uncheckValue' => 0,
             'checked' => set_value('rememberMe', $data['rememberMe'] ?? 1) == 1
-        ]);?> <?= lang('Remember Me');?></label>
-    </div>
+        ],
+        'label' => $attributes['rememberMe'] ?? 'rememberMe',
+        'error' => $errors['rememberMe'] ?? null
+    ]);?>
+
     <?php foreach($errors as $error):?>
-        <div class="alert alert-danger"><?= $error;?></div>
+        <?= view_cell('Site::alertDanger', ['slot' => $error]);?>
     <?php endforeach;?>
+
     <div class="mb-5">
-        <button type="submit" class="btn btn-primary"><?= lang('Submit');?></button>
+        <?= view_cell('Site::formSubmit', ['attributes' => [
+            'value' => lang('Submit')
+        ]]);?>
     </div>
 </form>
 
